@@ -37,7 +37,6 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.vm.MainViewModel
 
 class AdoptActivity : AppCompatActivity() {
-    private val vm: MainViewModel by viewModels()
 
     companion object {
         const val Key = "dog"
@@ -60,7 +59,6 @@ class AdoptActivity : AppCompatActivity() {
 
     @Composable
     fun AdoptPage(dog: Dog) {
-        val vm: MainViewModel = viewModel()
         Scaffold(
             topBar = {
                 TopAppBar(title = {
