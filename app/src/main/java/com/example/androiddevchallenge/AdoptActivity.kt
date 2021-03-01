@@ -22,22 +22,32 @@ import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.model.Dog
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.theme.white40
 
 class AdoptActivity : AppCompatActivity() {
 
@@ -78,26 +88,39 @@ class AdoptActivity : AppCompatActivity() {
     @Composable
     fun AdoptDog(dog: Dog, adoptListener: () -> Unit) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Image(
-                painter = painterResource(id = dog.img),
-                modifier = Modifier
-                    .size(328.dp),
-                contentDescription = "",
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.size(16.dp))
-            Text(text = "Name: ${dog.name}", style = MaterialTheme.typography.subtitle1)
-            Text(text = "Age: ${dog.age}岁", style = MaterialTheme.typography.body1)
-            Text(text = "Breed: ${dog.breed}", style = MaterialTheme.typography.body1)
-            Text(text = "Color: ${dog.color}", style = MaterialTheme.typography.body1)
+            Box(contentAlignment = Alignment.BottomStart) {
+                Image(
+                    painter = painterResource(id = dog.img),
+                    modifier = Modifier
+                        .size(328.dp),
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop
+                )
+                Box(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .background(white40, shape = RoundedCornerShape(topEnd = 16.dp))
+                ) {
+                    Column(modifier = Modifier.padding(8.dp)) {
+                        Text(text = "Name: ${dog.name}", style = MaterialTheme.typography.subtitle1)
+                        Text(text = "Age: ${dog.age}岁", style = MaterialTheme.typography.body1)
+                        Text(text = "Breed: ${dog.breed}", style = MaterialTheme.typography.body1)
+                        Text(text = "Color: ${dog.color}", style = MaterialTheme.typography.body1)
+                    }
+                }
+            }
             Spacer(modifier = Modifier.size(32.dp))
-            Button(
-                onClick = {
-                    adoptListener.invoke()
-                },
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text(text = "Adpot")
+            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = {
+                        adoptListener.invoke()
+                    },
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clip(CircleShape)
+                ) {
+                    Text(text = "Adpot", fontSize = 22.sp)
+                }
             }
 
         }
