@@ -17,45 +17,97 @@ package com.example.androiddevchallenge
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androiddevchallenge.model.Dog
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.vm.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+    private val vm: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                MainPage()
             }
         }
     }
-}
 
-// Start building your app here!
-@Composable
-fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    // Start building your app here!
+    @Composable
+    fun MainPage() {
+        Scaffold(
+            topBar = {
+                TopAppBar(title = {
+                    Text(text = "狗狗领养")
+                })
+            }
+        ) {
+            DogList(vm.dogs.value!!) {
+                AdoptActivity.create(this, it)
+            }
+        }
     }
-}
 
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
-    }
-}
-
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
-@Composable
-fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
+    @Composable
+    fun DogList(dogList: List<Dog>, listener: (dog: Dog) -> Unit) {
+        LazyColumn(
+            contentPadding = PaddingValues(8.dp),
+            content = {
+                itemsIndexed(dogList) { i: Int, dog: Dog ->
+                    Card(
+                        elevation = 6.dp,
+                        shape = RoundedCornerShape(12.dp), modifier = Modifier
+                            .padding(bottom = 8.dp)
+                            .fillMaxWidth()
+                            .height(120.dp)
+                            .clickable { listener.invoke(dog) }
+                    ) {
+                        Row {
+                            Image(
+                                painter = painterResource(id = dog.img),
+                                modifier = Modifier.size(120.dp),
+                                contentDescription = "",
+                                contentScale = ContentScale.Crop
+                            )
+                            Column(
+                                modifier = Modifier.padding(8.dp),
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = "Name: ${dog.name}",
+                                    style = MaterialTheme.typography.subtitle1
+                                )
+                                Text(
+                                    text = "Age: ${dog.age}岁",
+                                    style = MaterialTheme.typography.body1
+                                )
+                                Text(
+                                    text = "Breed: ${dog.breed}",
+                                    style = MaterialTheme.typography.body1
+                                )
+                                Text(
+                                    text = "Color: ${dog.color}",
+                                    style = MaterialTheme.typography.body1
+                                )
+                            }
+                        }
+                    }
+                }
+            })
     }
 }
