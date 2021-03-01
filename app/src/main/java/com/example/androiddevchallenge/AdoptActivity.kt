@@ -20,21 +20,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.androiddevchallenge.model.Dog
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.vm.MainViewModel
 
 class AdoptActivity : AppCompatActivity() {
 
@@ -75,28 +78,27 @@ class AdoptActivity : AppCompatActivity() {
     @Composable
     fun AdoptDog(dog: Dog, adoptListener: () -> Unit) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Box(contentAlignment = Alignment.BottomEnd) {
-                Image(
-                    painter = painterResource(id = dog.img),
-                    modifier = Modifier
-                        .size(328.dp),
-                    contentDescription = "",
-                    contentScale = ContentScale.Crop
-                )
-                Button(
-                    onClick = {
-                        adoptListener.invoke()
-                    },
-                    modifier = Modifier.padding(8.dp)
-                ) {
-                    Text(text = "Adpot")
-                }
-            }
+            Image(
+                painter = painterResource(id = dog.img),
+                modifier = Modifier
+                    .size(328.dp),
+                contentDescription = "",
+                contentScale = ContentScale.Crop
+            )
             Spacer(modifier = Modifier.size(16.dp))
             Text(text = "Name: ${dog.name}", style = MaterialTheme.typography.subtitle1)
             Text(text = "Age: ${dog.age}岁", style = MaterialTheme.typography.body1)
             Text(text = "Breed: ${dog.breed}", style = MaterialTheme.typography.body1)
             Text(text = "Color: ${dog.color}", style = MaterialTheme.typography.body1)
+            Spacer(modifier = Modifier.size(32.dp))
+            Button(
+                onClick = {
+                    adoptListener.invoke()
+                },
+                modifier = Modifier.padding(8.dp)
+            ) {
+                Text(text = "Adpot")
+            }
 
         }
     }
