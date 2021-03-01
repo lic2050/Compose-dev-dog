@@ -2,10 +2,11 @@
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
-![Workflow result](https://github.com/<OWNER>/<REPOSITORY>/workflows/Check/badge.svg)
+![Workflow result](https://github.com/lic2050/Compose-dev-dog/workflows/Check/badge.svg)
 
 
 ## :scroll: Description
+JetPack Compose 狗狗领养
 <!--- Describe your app in one or two sentences -->
 
 
@@ -16,7 +17,7 @@
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
-<img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
+<img src="/results/screenshot_1.jpg" width="260">&emsp;<img src="/results/screenshot_2.jpg" width="260">
 
 ## License
 ```
