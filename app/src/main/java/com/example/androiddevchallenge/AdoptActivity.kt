@@ -119,7 +119,7 @@ class AdoptActivity : AppCompatActivity() {
                         .size(150.dp)
                         .clip(CircleShape)
                 ) {
-                    Text(text = "Adpot", fontSize = 22.sp)
+                    Text(text = "Adpot", fontSize = 24.sp)
                 }
             }
 
