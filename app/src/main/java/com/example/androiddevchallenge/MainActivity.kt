@@ -21,22 +21,22 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -62,9 +62,11 @@ class MainActivity : AppCompatActivity() {
     fun MainPage() {
         Scaffold(
             topBar = {
-                TopAppBar(title = {
-                    Text(text = "狗狗领养")
-                })
+                TopAppBar(
+                    title = {
+                        Text(text = "狗狗领养")
+                    }
+                )
             }
         ) {
             DogList(vm.dogs.value!!) {
@@ -81,7 +83,8 @@ class MainActivity : AppCompatActivity() {
                 itemsIndexed(dogList) { i: Int, dog: Dog ->
                     Card(
                         elevation = 6.dp,
-                        shape = RoundedCornerShape(12.dp), modifier = Modifier
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier
                             .padding(bottom = 8.dp)
                             .fillMaxWidth()
                             .height(120.dp)
@@ -118,6 +121,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-            })
+            }
+        )
     }
 }
