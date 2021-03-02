@@ -53,7 +53,7 @@ class AdoptActivity : AppCompatActivity() {
 
     companion object {
         const val Key = "dog"
-        fun create(context: Context, dog: Dog) {
+        fun create(context: Context, dog: Dog?) {
             val intent = Intent(context, AdoptActivity::class.java)
             intent.putExtra(Key, dog)
             context.startActivity(intent)
@@ -62,7 +62,11 @@ class AdoptActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dog = intent.getSerializableExtra(Key) as Dog
+        val dog = intent.getSerializableExtra(Key) as? Dog
+        if (dog == null) {
+            finish()
+            return
+        }
         setContent {
             MyTheme {
                 AdoptPage(dog)
